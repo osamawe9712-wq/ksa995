@@ -67,6 +67,7 @@ html {
 }
 
 body {
+     padding-top: 60px;                                    
     font-family: var(--body-font);
     background-color: var(--light-bg);
     color: var(--text-color);
@@ -259,6 +260,17 @@ nav::-webkit-scrollbar {
 
 /* قسم الاقتباسات */
 .quote-section {
+
+
+    /* مثال: إذا كان الكلاس الخاص بشريط التنقل هو .nav-header */
+.nav-header {
+  position: fixed; /* لتثبيت الشريط في مكانه أثناء التمرير */
+  top: 0;          /* لجعله ملتصقًا بأعلى الصفحة */
+  width: 100%;     /* لجعله يمتد على كامل عرض الشاشة */
+  height: 60px;    /* <--- القيمة الأهم! يجب أن تكون الارتفاع الحقيقي لشريطك */
+  z-index: 1000;   /* لضمان ظهوره فوق باقي العناصر */
+  background-color: #004d40; /* لون شريط التنقل الأخضر */
+}
  /* مثال: إذا كان الكلاس الخاص بشريط التنقل هو .nav-header */
 .nav-header {
   position: fixed; /* لتثبيت الشريط في مكانه أثناء التمرير */
