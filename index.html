@@ -4,526 +4,541 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الموقع الرسمي لليوم الوطني 95 - المملكة العربية السعودية</title>
-    <style>
-        /* ================================================= */
-        /* CSS Variables - متغيرات الألوان الأساسية والثيمات */
-        /* ================================================= */
-        :root {
-            /* الألوان القياسية */
-            --primary-green: #004C33; /* أخضر غامق (التركيز) */
-            --secondary-green: #006037; /* أخضر متوسط (التنقل) */
-            --accent-gold: #C5A359; /* ذهبي (التمييز) */
-            --light-bg: #F5F1E5; /* بيج فاتح (الخلفية) */
-            --dark-bg: #0D0D0D; /* خلفية الفوتر */
-            --text-color: #333;
-            --container-bg: white;
-            --shadow-color: rgba(0, 0, 0, 0.1);
-            --body-font: 'Arial', sans-serif;
-            --history-bg: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="%23f5f1e5"/><circle cx="50" cy="50" r="45" fill="none" stroke="%23c5a359" stroke-width="1" opacity="0.1"/></svg>');
-        }
-        
-        /* الوضع الليلي (Dark Mode) */
-        body.dark-mode {
-            --primary-green: #89C99A;
-            --secondary-green: #6C9F7A;
-            --accent-gold: #DAA520;
-            --light-bg: #1A1A1A;
-            --dark-bg: #00331A;
-            --text-color: #E0E0E0;
-            --container-bg: #2C2C2C;
-            --shadow-color: rgba(255, 255, 255, 0.1);
-        }
+    <style>/* ================================================= */
+/* CSS Variables - متغيرات الألوان الأساسية والثيمات */
+/* ================================================= */
+:root {
+    /* الألوان القياسية */
+    --primary-green: #004C33; /* أخضر غامق (التركيز) */
+    --secondary-green: #006037; /* أخضر متوسط (التنقل) */
+    --accent-gold: #C5A359; /* ذهبي (التمييز) */
+    --light-bg: #F5F1E5; /* بيج فاتح (الخلفية) */
+    --dark-bg: #0D0D0D; /* خلفية الفوتر */
+    --text-color: #333;
+    --container-bg: white;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --body-font: 'Arial', sans-serif;
+    --history-bg: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="%23f5f1e5"/><circle cx="50" cy="50" r="45" fill="none" stroke="%23c5a359" stroke-width="1" opacity="0.1"/></svg>');
+}
 
-        /* الوضع التراثي / زمن المؤسسين (Founders' Era Mode) - الفكرة 2 */
-        body.founders-mode {
-            --primary-green: #964B00; /* بني عميق */
-            --secondary-green: #C5A359; /* ذهبي عتيق */
-            --accent-gold: #333; /* نص داكن */
-            --light-bg: #F5E8D3; /* خلفية سيبيا */
-            --dark-bg: #D8C3A5;
-            --text-color: #583F2F; /* نص بني */
-            --container-bg: #FDF7EC;
-            /* فلتر عام ليعطي تأثير الصورة القديمة */
-            filter: sepia(0.4) saturate(1.1) contrast(1.1); 
-        }
-        .founders-mode .hero-background-image {
-            filter: grayscale(0.2) sepia(0.6); /* تطبيق فلتر خاص على صورة البطل */
-        }
-        .founders-mode .hero h1, .founders-mode .hero p {
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
-        }
+/* الوضع الليلي (Dark Mode) */
+body.dark-mode {
+    --primary-green: #89C99A;
+    --secondary-green: #6C9F7A;
+    --accent-gold: #DAA520;
+    --light-bg: #1A1A1A;
+    --dark-bg: #00331A;
+    --text-color: #E0E0E0;
+    --container-bg: #2C2C2C;
+    --shadow-color: rgba(255, 255, 255, 0.1);
+}
 
-
-        /* ================================================= */
-        /* التنسيقات العامة */
-        /* ================================================= */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--body-font);
-            background-color: var(--light-bg);
-            color: var(--text-color);
-            direction: rtl;
-            line-height: 1.6;
-            /* تم إزالة overflow-x: hidden; */
-            transition: all 0.5s ease-out; /* انتقال الفلتر والألوان */
-        }
-        
-        h1, h2, h3 {
-            color: var(--primary-green);
-            font-weight: 700;
-            transition: color 0.5s ease;
-        }
-
-        /* أزرار الأوضاع */
-        .mode-toggle-group {
-            position: fixed;
-            top: 25px;
-            left: 25px; /* تم تعديل الاتجاه ليظهر في مكان مناسب للـ RTL */
-            z-index: 1001;
-            display: flex;
-            gap: 10px;
-        }
-        .mode-toggle {
-            background-color: var(--dark-bg);
-            color: white;
-            border: 2px solid var(--accent-gold);
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 10px var(--shadow-color);
-            transition: all 0.3s ease;
-        }
-
-        .mode-toggle:hover {
-            transform: scale(1.1);
-        }
-
-        /* تنسيق رأس الصفحة (Hero Section) */
-        .hero {
-            position: relative;
-            height: 85vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
-            overflow: hidden;
-            background-attachment: fixed;
-            padding-top: 5rem;
-        }
-        
-        .hero-background-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 0;
-            transition: filter 0.5s ease-out;
-        }
-        
-        /* طبقة التظليل فوق الصورة */
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1;
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            padding: 0 1rem;
-        }
-        
-        .hero h1 {
-            font-size: clamp(2rem, 8vw, 4.5rem);
-            font-weight: bold;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-            margin-bottom: 1rem;
-        }
-        
-        /* شريط التنقل (Navigation Bar) */
-        nav {
-            position: sticky;
-            top: 0;
-            background-color: var(--secondary-green);
-            padding: 1rem 0;
-            z-index: 1000;
-            box-shadow: 0 4px 8px var(--shadow-color);
-            display: flex;
-            justify-content: center;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            transition: background-color 0.5s ease;
-        }
-        
-        nav a {
-            color: white;
-            text-decoration: none;
-            padding: 0 20px;
-            white-space: nowrap;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-        
-        nav a:hover {
-            color: var(--accent-gold);
-            transform: scale(1.1);
-        }
-        
-        nav::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* تنسيق أقسام المحتوى */
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 3rem;
-            background-color: var(--container-bg);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px var(--shadow-color);
-            transition: all 0.6s ease-out, background-color 0.5s ease;
-            transform: translateY(30px);
-            opacity: 0;
-            
-            /* الفكرة 3: إضافة نمط بصري خفيف */
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* الفكرة 3: زخرفة شفافة على جميع الحاويات */
-        .container::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* نمط خطوط خفيف مستوحى من الخطوط العربية / الهوية */
-            background-image: repeating-linear-gradient(45deg, var(--primary-green) 0, var(--primary-green) 1px, transparent 1px, transparent 10px);
-            opacity: 0.04; 
-            z-index: 0;
-            pointer-events: none;
-        }
-        
-        .container > * { 
-            position: relative;
-            z-index: 1; /* جعل المحتوى فوق الزخرفة */
-        }
-        
-        .container.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .container h2 {
-            font-size: 2.5rem;
-            border-bottom: 3px solid var(--accent-gold);
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        #vision h2 {
-            cursor: pointer;
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-        #vision h2:hover {
-            transform: scale(1.02);
-            color: var(--accent-gold);
-        }
-        
-        /* قسم الاقتباسات */
-        .quote-section {
-            background-color: var(--primary-green);
-            color: white;
-            padding: 3rem;
-            text-align: center;
-            font-size: 1.5rem;
-            font-style: italic;
-            transition: background-color 0.5s ease;
-            position: relative;
-            overflow: hidden;
-            margin-top: 4rem;
-        }
-        .quote-section cite {
-            display: block;
-            margin-top: 1rem;
-            font-style: normal;
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: var(--accent-gold);
-        }
-
-        /* المخطط الزمني (Timeline) - الفكرة 1: جزء من السرد التاريخي */
-        #history {
-            /* خلفية خفيفة تعكس التاريخ */
-            background-image: var(--history-bg);
-            background-repeat: repeat;
-        }
-        
-        .timeline {
-            position: relative;
-            padding: 20px 0;
-            margin-top: 2rem;
-            border-right: 3px solid var(--primary-green); /* خط وهمي لـ Timeline */
-            padding-right: 25px;
-        }
-        .timeline-item {
-            margin-bottom: 20px;
-            padding-right: 15px;
-            position: relative;
-        }
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            right: -27px; /* وضع الدائرة على الخط */
-            top: 5px;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background-color: var(--accent-gold);
-            border: 3px solid var(--secondary-green);
-        }
-        .timeline-item h3 {
-            margin-bottom: 5px;
-        }
-
-        /* قسم الإحصائيات - الفكرة 4: Dynamic Statistics */
-        .stats-section {
-            margin-top: 3rem;
-            padding: 2rem;
-            background-color: var(--light-bg);
-            border-radius: 10px;
-            border: 2px solid var(--accent-gold);
-            text-align: center;
-            transition: all 0.5s ease;
-        }
-        .stats-grid {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-top: 1.5rem;
-        }
-        .stat-item {
-            padding: 15px;
-            min-width: 150px;
-            margin: 10px;
-        }
-        .stat-number {
-            font-size: 3rem;
-            font-weight: bold;
-            color: var(--primary-green);
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-        .stat-label {
-            color: var(--text-color);
-            font-size: 1rem;
-            display: block;
-        }
-        
-        /* تمييز قسم الرؤية باللون (الفكرة 1: الانتقال نحو المستقبل - المستقبل هو الرؤية) */
-        #vision {
-            background: linear-gradient(135deg, var(--container-bg) 70%, var(--secondary-green) 100%);
-        }
-        body.dark-mode #vision {
-            background: linear-gradient(135deg, var(--container-bg) 70%, var(--dark-bg) 100%);
-        }
-
-        /* تنسيقات GRID المفقودة (القادة والمدن) */
-        .grid-container, .image-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .card {
-            background-color: var(--light-bg);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px var(--shadow-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-align: center;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px var(--shadow-color);
-        }
-
-        .image-placeholder {
-            height: 200px; /* الارتفاع الأصلي */
-            overflow: hidden;
-            display: flex; /* لتمكين التوسيط */
-            justify-content: center; /* توسيط أفقي */
-            align-items: center; /* توسيط رأسي */
-            background-color: white; /* خلفية بيضاء للدائرة */
-            border-radius: 50%; /* لجعل الفراغ الذي تحوي الصورة دائريًا */
-            margin: 20px auto 0; /* توسيط placeholder وجعل له هامش علوي */
-            width: 180px; /* تحديد عرض ثابت للدائرة الخارجية */
-            height: 180px; /* تحديد ارتفاع ثابت للدائرة الخارجية */
-            border: 3px solid var(--accent-gold); /* إطار ذهبي حول الصورة */
-        }
-
-        /* التعديل الوحيد: جعل الصور دائرية */
-        .card img {
-            width: 90%; /* حجم الصورة داخل الدائرة */
-            height: 90%; /* حجم الصورة داخل الدائرة */
-            object-fit: contain; /* يجعل الصورة تظهر بالكامل داخل الدائرة بدون اقتصاص كبير */
-            transition: transform 0.5s ease;
-            border-radius: 50%; /* **هذا هو التعديل المطلوب: يجعل الصورة دائرية** */
-            padding: 5px; /* مسافة داخلية صغيرة بين الصورة والإطار الذهبي */
-        }
-
-        .card:hover img {
-            transform: scale(1.05);
-        }
-
-        .card h3 {
-            margin: 15px 0 5px;
-            font-size: 1.2rem;
-        }
-
-        .reign-period {
-            display: block;
-            font-size: 0.9rem;
-            color: var(--accent-gold);
-            margin-bottom: 10px;
-        }
-        .card p {
-            padding: 0 15px 15px;
-            font-size: 0.95rem;
-            color: var(--text-color);
-        }
-
-        /* تنسيق نافذة العرض المنبثقة (Modal) */
-        .image-modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            padding-top: 60px;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.9);
-        }
-
-        .modal-content {
-            margin: auto;
-            display: block;
-            width: 80%;
-            max-width: 700px;
-            border-radius: 10px;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: bold;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-        .close-btn:hover,
-        .close-btn:focus {
-            color: #bbb;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        /* زر العودة للأعلى */
-        #scrollToTopBtn {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-            border: none;
-            outline: none;
-            background-color: var(--primary-green);
-            color: white;
-            cursor: pointer;
-            padding: 15px;
-            border-radius: 50%;
-            font-size: 18px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        #scrollToTopBtn:hover {
-            background-color: var(--secondary-green);
-            transform: scale(1.05);
-        }
-
-        /* تنسيق الفوتر */
-        footer {
-            background-color: var(--dark-bg);
-            color: #ccc;
-            text-align: center;
-            padding: 1.5rem 0;
-            font-size: 0.9rem;
-            margin-top: 3rem;
-            transition: background-color 0.5s ease, color 0.5s ease;
-        }
-        footer p {
-            margin: 5px 0;
-        }
+/* الوضع التراثي / زمن المؤسسين (Founders' Era Mode) - الفكرة 2 */
+body.founders-mode {
+    --primary-green: #964B00; /* بني عميق */
+    --secondary-green: #C5A359; /* ذهبي عتيق */
+    --accent-gold: #333; /* نص داكن */
+    --light-bg: #F5E8D3; /* خلفية سيبيا */
+    --dark-bg: #D8C3A5;
+    --text-color: #583F2F; /* نص بني */
+    --container-bg: #FDF7EC;
+    /* فلتر عام ليعطي تأثير الصورة القديمة */
+    filter: sepia(0.4) saturate(1.1) contrast(1.1); 
+}
+.founders-mode .hero-background-image {
+    filter: grayscale(0.2) sepia(0.6); /* تطبيق فلتر خاص على صورة البطل */
+}
+.founders-mode .hero h1, .founders-mode .hero p {
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
 
 
-        /* ---------------------------------------------------- */
-        /* التعديلات الخاصة بالشاشات الصغيرة (الجوال) */
-        /* ---------------------------------------------------- */
-        @media (max-width: 768px) {
-            .mode-toggle-group {
-                top: 15px;
-                left: 15px;
-            }
-            .stats-grid {
-                justify-content: center;
-            }
-            .container {
-                padding: 1.5rem;
-                margin: 2rem auto;
-            }
-            .container h2 {
-                font-size: 2rem;
-            }
-            .quote-section {
-                font-size: 1.2rem;
-                padding: 2rem 1rem;
-            }
-        }
+/* ================================================= */
+/* التنسيقات العامة */
+/* ================================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--body-font);
+    background-color: var(--light-bg);
+    color: var(--text-color);
+    direction: rtl;
+    line-height: 1.6;
+    /* تم إزالة overflow-x: hidden; */
+    transition: all 0.5s ease-out; /* انتقال الفلتر والألوان */
+}
+
+h1, h2, h3 {
+    color: var(--primary-green);
+    font-weight: 700;
+    transition: color 0.5s ease;
+}
+
+/* أزرار الأوضاع */
+.mode-toggle-group {
+    position: fixed;
+    top: 25px;
+    left: 25px; /* تم تعديل الاتجاه ليظهر في مكان مناسب للـ RTL */
+    z-index: 1001;
+    display: flex;
+    gap: 10px;
+}
+.mode-toggle {
+    background-color: var(--dark-bg);
+    color: white;
+    border: 2px solid var(--accent-gold);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px var(--shadow-color);
+    transition: all 0.3s ease;
+}
+
+.mode-toggle:hover {
+    transform: scale(1.1);
+}
+
+/* تنسيق رأس الصفحة (Hero Section) */
+.hero {
+    position: relative;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+    background-attachment: fixed;
+    padding-top: 5rem;
+}
+
+.hero-background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    transition: filter 0.5s ease-out;
+}
+
+/* طبقة التظليل فوق الصورة */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 1rem;
+}
+
+.hero h1 {
+    font-size: clamp(2rem, 8vw, 4.5rem);
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    margin-bottom: 1rem;
+}
+
+/* شريط التنقل (Navigation Bar) */
+nav {
+    position: sticky;
+    top: 0;
+    background-color: var(--secondary-green);
+    padding: 1rem 0;
+    z-index: 1000;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    transition: background-color 0.5s ease;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 0 20px;
+    white-space: nowrap;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--accent-gold);
+    transform: scale(1.1);
+}
+
+nav::-webkit-scrollbar {
+    display: none;
+}
+
+/* تنسيق أقسام المحتوى */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 3rem;
+    background-color: var(--container-bg);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    transition: all 0.6s ease-out, background-color 0.5s ease;
+    transform: translateY(30px);
+    opacity: 0;
+    
+    /* الفكرة 3: إضافة نمط بصري خفيف */
+    position: relative;
+    overflow: hidden;
+}
+
+/* الفكرة 3: زخرفة شفافة على جميع الحاويات */
+.container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* نمط خطوط خفيف مستوحى من الخطوط العربية / الهوية */
+    background-image: repeating-linear-gradient(45deg, var(--primary-green) 0, var(--primary-green) 1px, transparent 1px, transparent 10px);
+    opacity: 0.04; 
+    z-index: 0;
+    pointer-events: none;
+}
+
+.container > * { 
+    position: relative;
+    z-index: 1; /* جعل المحتوى فوق الزخرفة */
+}
+
+.container.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.container h2 {
+    font-size: 2.5rem;
+    border-bottom: 3px solid var(--accent-gold);
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+#vision h2 {
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+#vision h2:hover {
+    transform: scale(1.02);
+    color: var(--accent-gold);
+}
+
+/* قسم الاقتباسات */
+.quote-section {
+    background-color: var(--primary-green);
+    color: white;
+    padding: 3rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-style: italic;
+    transition: background-color 0.5s ease;
+    position: relative;
+    overflow: hidden;
+    margin-top: 4rem;
+}
+.quote-section cite {
+    display: block;
+    margin-top: 1rem;
+    font-style: normal;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--accent-gold);
+}
+
+/* المخطط الزمني (Timeline) - الفكرة 1: جزء من السرد التاريخي */
+#history {
+    /* خلفية خفيفة تعكس التاريخ */
+    background-image: var(--history-bg);
+    background-repeat: repeat;
+}
+
+.timeline {
+    position: relative;
+    padding: 20px 0;
+    margin-top: 2rem;
+    border-right: 3px solid var(--primary-green); /* خط وهمي لـ Timeline */
+    padding-right: 25px;
+}
+.timeline-item {
+    margin-bottom: 20px;
+    padding-right: 15px;
+    position: relative;
+}
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    right: -27px; /* وضع الدائرة على الخط */
+    top: 5px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: var(--accent-gold);
+    border: 3px solid var(--secondary-green);
+}
+.timeline-item h3 {
+    margin-bottom: 5px;
+}
+
+/* قسم الإحصائيات - الفكرة 4: Dynamic Statistics */
+.stats-section {
+    margin-top: 3rem;
+    padding: 2rem;
+    background-color: var(--light-bg);
+    border-radius: 10px;
+    border: 2px solid var(--accent-gold);
+    text-align: center;
+    transition: all 0.5s ease;
+}
+.stats-grid {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+}
+.stat-item {
+    padding: 15px;
+    min-width: 150px;
+    margin: 10px;
+}
+.stat-number {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--primary-green);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+.stat-label {
+    color: var(--text-color);
+    font-size: 1rem;
+    display: block;
+}
+
+/* تمييز قسم الرؤية باللون (الفكرة 1: الانتقال نحو المستقبل - المستقبل هو الرؤية) */
+#vision {
+    background: linear-gradient(135deg, var(--container-bg) 70%, var(--secondary-green) 100%);
+}
+body.dark-mode #vision {
+    background: linear-gradient(135deg, var(--container-bg) 70%, var(--dark-bg) 100%);
+}
+
+/* تنسيقات GRID المفقودة (القادة والمدن) */
+.grid-container, .image-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.card {
+    background-color: var(--light-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px var(--shadow-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px var(--shadow-color);
+}
+
+/* 1. الحاوية الدائرية الخارجية (Placeholder) - التعديل الأساسي هنا */
+.image-placeholder {
+    /* الخصائص التي تجعل الحاوية دائرية وفي المنتصف */
+    width: 180px;
+    height: 180px;
+    margin: 20px auto 10px; /* توسيط الدائرة */
+    overflow: hidden; /* لقص الصورة الزائدة عن الإطار الدائري */
+    display: flex; /* لتمكين التوسيط الداخلي */
+    justify-content: center; /* توسيط أفقي للصورة */
+    align-items: center; /* توسيط رأسي للصورة */
+    border-radius: 50%; 
+    border: 3px solid var(--accent-gold); /* إطار ذهبي جميل حول الصورة */
+    background-color: var(--container-bg); /* خلفية للحاوية إذا لم تملأها الصورة */
+    box-shadow: 0 0 15px rgba(197, 163, 89, 0.4); /* ظل خفيف لإبرازها */
+    transition: all 0.5s ease;
+}
+
+/* 2. الصورة الداخلية (img) داخل الحاوية - التعديل الأساسي هنا */
+.card img {
+    /* الخصائص الأساسية لملء الدائرة وتدوير الصورة */
+    width: 100%; 
+    height: 100%;
+    
+    /* أهم خاصية: تجعل الصورة تملأ الدائرة بالكامل دون تمدد، ولكن مع قص الأجزاء الزائدة */
+    object-fit: cover; 
+    
+    /* لجعل الصورة دائرية أيضًا */
+    border-radius: 50%; 
+    
+    /* إزالة أي حشو (padding) غير مرغوب فيه */
+    padding: 0; 
+    
+    /* لإضافة حركة ناعمة */
+    transition: transform 0.5s ease;
+}
+
+.card:hover .image-placeholder {
+    border-color: var(--primary-green);
+}
+
+.card:hover img {
+    transform: scale(1.05);
+}
+
+.card h3 {
+    margin: 15px 0 5px;
+    font-size: 1.2rem;
+}
+
+.reign-period {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--accent-gold);
+    margin-bottom: 10px;
+}
+.card p {
+    padding: 0 15px 15px;
+    font-size: 0.95rem;
+    color: var(--text-color);
+}
+
+/* تنسيق نافذة العرض المنبثقة (Modal) */
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    border-radius: 10px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.close-btn:hover,
+.close-btn:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* زر العودة للأعلى */
+#scrollToTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    border: none;
+    outline: none;
+    background-color: var(--primary-green);
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 50%;
+    font-size: 18px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#scrollToTopBtn:hover {
+    background-color: var(--secondary-green);
+    transform: scale(1.05);
+}
+
+/* تنسيق الفوتر */
+footer {
+    background-color: var(--dark-bg);
+    color: #ccc;
+    text-align: center;
+    padding: 1.5rem 0;
+    font-size: 0.9rem;
+    margin-top: 3rem;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+footer p {
+    margin: 5px 0;
+}
+
+
+/* ---------------------------------------------------- */
+/* التعديلات الخاصة بالشاشات الصغيرة (الجوال) */
+/* ---------------------------------------------------- */
+@media (max-width: 768px) {
+    .mode-toggle-group {
+        top: 15px;
+        left: 15px;
+    }
+    .stats-grid {
+        justify-content: center;
+    }
+    .container {
+        padding: 1.5rem;
+        margin: 2rem auto;
+    }
+    .container h2 {
+        font-size: 2rem;
+    }
+    .quote-section {
+        font-size: 1.2rem;
+        padding: 2rem 1rem;
+    }
+}
     </style>
 </head>
 <body>
