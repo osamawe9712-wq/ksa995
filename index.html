@@ -259,6 +259,12 @@ nav::-webkit-scrollbar {
 
 /* قسم الاقتباسات */
 .quote-section {
+    @media (max-width: 768px) {
+  /* طبق الكود فقط على الشاشات التي عرضها 768 بكسل أو أقل (شاشات الجوال والأجهزة اللوحية الصغيرة) */
+  body {
+    padding-top: 60px; /* عدّل الارتفاع حسب شريط التنقل لديك */
+  }
+}
     background-color: var(--primary-green);
     color: white;
     padding: 3rem;
@@ -271,6 +277,7 @@ nav::-webkit-scrollbar {
     margin-top: 4rem;
 }
 .quote-section cite {
+    
     /* مثال: إذا كان للصورة التي تريد تعديلها كلاس اسمه "page-image" */
 .page-image {
   /* لتقليل ارتفاع الصورة وجعلها "قصيرة" */
