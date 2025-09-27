@@ -238,7 +238,7 @@ nav::-webkit-scrollbar {
 
 .container.visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0);                              
 }
 
 .container h2 {
@@ -281,18 +281,7 @@ nav::-webkit-scrollbar {
   background-color: #004d40; /* لون شريط التنقل الأخضر */
 }
   }
-}
-    background-color: var(--primary-green);
-    color: white;
-    padding: 3rem;
-    text-align: center;
-    font-size: 1.5rem;
-    font-style: italic;
-    transition: background-color 0.5s ease;
-    position: relative;
-    overflow: hidden;
-    margin-top: 4rem;
-}
+
 .quote-section cite {
     
     /* مثال: إذا كان للصورة التي تريد تعديلها كلاس اسمه "page-image" */
@@ -582,6 +571,22 @@ footer p {
         padding: 2rem 1rem;
     }
 }
+.logo-square {
+  /* 1. تحديد الحجم الصغير */
+  width: 60px;   /* عرض الشعار (يمكنك تعديل القيمة) */
+  height: 60px;  /* طول الشعار (اجعله مساوياً للعرض ليكون مربعاً) */
+  
+  /* 2. ضمان المربعية (نسبة 1:1) */
+  aspect-ratio: 1 / 1; 
+
+  /* 3. طريقة عرض الصورة داخل المربع */
+  object-fit: cover; /* لضمان أن تملأ الصورة المربع بالكامل دون ترك فراغات */
+  
+  /* 4. جعل الشعار دائريًا (اختياري) */
+  /* إذا أردت الشعار دائرياً بدلاً من مربع، أضف السطر التالي: */
+  border-radius: 50%;
+}
+
     </style>
 </head>
 <body>
@@ -821,8 +826,13 @@ footer p {
 والطالب : سالم يسلم بازومح
         
         </P>
+            <img class="logo-square" src="https://i0.wp.com/ksalogo.com/wp-content/uploads/2024/12/Minisrty-of-Education-01-1-1.png?fit=1000%2C1000&ssl=1" alt="شعار وزارة التعليم السعودية" class="footer-logo">
+
+    </footer>
+     <footer class="small-square-logo">
     </footer>
 
+    
     <script>
         // =================================================
         // 1. وظائف التفاعل البصري والوضع الليلي/التراثي
