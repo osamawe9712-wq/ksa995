@@ -271,6 +271,25 @@ nav::-webkit-scrollbar {
     margin-top: 4rem;
 }
 .quote-section cite {
+    /* مثال: إذا كان للصورة التي تريد تعديلها كلاس اسمه "page-image" */
+.page-image {
+  /* لتقليل ارتفاع الصورة وجعلها "قصيرة" */
+  height: 200px; /* يمكنك تغيير القيمة 200px حسب ما تراه مناسباً */
+
+  /* لتحديد عرض الصورة (هنا جعلناها تستغل 80% من مساحة العنصر الحاوي) */
+  width: 80%; 
+
+  /* لضمان عدم تشوه الصورة عند تغيير الأبعاد */
+  object-fit: cover; 
+
+  /* لجعل الصورة في المنتصف (إذا كانت داخل عنصر حِمل) */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+  /* لإضافة حواف دائرية بسيطة لتبدو "مرتبة" (اختياري) */
+  border-radius: 8px;
+}
     display: block;
     margin-top: 1rem;
     font-style: normal;
